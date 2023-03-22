@@ -16,7 +16,7 @@ char *split(char string[])
                 printf("Failed to allocate memory\n");
                 return NULL;
             }
-            for(int j = 0; j <= nSize; j++)
+            for(int j = 0; j < nSize; j++)
             {
                 temparray[j] = string[j];
             }
