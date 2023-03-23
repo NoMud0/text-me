@@ -3,18 +3,21 @@
 
 char *copyToken(char *string, int pointer, int size)
 {
-    char *temparray = malloc((size + 1) * sizeof(char));
-    if(temparray == NULL)
+    if(size != 0)
     {
-        printf("Failed to allocate memory\n");
-        return NULL;
+        char *temparray = malloc((size + 1) * sizeof(char));
+        if(temparray == NULL)
+        {
+            printf("Failed to allocate memory\n");
+            return NULL;
+        }
+        for(int j = 0; j < size; j++)
+        {
+            temparray[j] = string[pointer + j];
+        }
+        temparray[size] = '\0'; // add null terminator
+        return temparray;
     }
-    for(int j = 0; j < size; j++)
-    {
-        temparray[j] = string[pointer + j];
-    }
-    temparray[size] = '\0'; // add null terminator
-    return temparray;
 }
 
 char *csplit(char string[])
@@ -24,17 +27,12 @@ char *csplit(char string[])
     int nSize = 0;
     while(string[i])
     {
-        if(string[i] == ' ')
+        if(string[i] == ' ') // if it is a space
         {
-            if(nSize != 0) 
-            {
-                char *Token = copyToken(string, nPointer, nSize);
-                return Token;
-            }
-            nPointer = 0;
-            nSize = 0;
+            char *Token = copyToken(string, nPointer, nSize);
+            return Token;
         }
-        else
+        else // if it is a char
         {
             if(i == nPointer + nSize)
             {
