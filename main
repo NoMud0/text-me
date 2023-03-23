@@ -1,6 +1,22 @@
 #include <stdio.h>
 #include <malloc.h>
 
+char *copyToken(char *string, int pointer, int size)
+{
+    char *temparray = malloc((size + 1) * sizeof(char));
+    if(temparray == NULL)
+    {
+        printf("Failed to allocate memory\n");
+        return NULL;
+    }
+    for(int j = 0; j < size; j++)
+    {
+        temparray[j] = string[pointer + j];
+    }
+    temparray[size] = '\0'; // add null terminator
+    return temparray;
+}
+
 char *csplit(char string[])
 {
     int i = 0;
@@ -12,18 +28,8 @@ char *csplit(char string[])
         {
             if(nSize != 0) 
             {
-                char *temparray = malloc((nSize + 1) * sizeof(char));
-                if(temparray == NULL)
-                {
-                    printf("Failed to allocate memory\n");
-                    return NULL;
-                }
-                for(int j = 0; j < nSize; j++)
-                {
-                    temparray[j] = string[nPointer + j];
-                }
-                temparray[nSize] = '\0'; // add null terminator
-                return temparray;
+                char *Token = copyToken(string, nPointer, nSize);
+                return Token;
             }
             nPointer = 0;
             nSize = 0;
