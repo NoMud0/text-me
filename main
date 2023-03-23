@@ -37,7 +37,7 @@ char *csplit(char string[])
                         temparray[j] = string[nPointer + j];
                     }
                     temparray[nSize] = '\0'; // add null terminator
-                    return temparray;
+                    return temparray; // the first split string
                 }
             }
             nPointer = 0;
@@ -47,7 +47,6 @@ char *csplit(char string[])
     }
     return NULL;
 }
-
 
 int main()
 {
