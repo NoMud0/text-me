@@ -10,23 +10,20 @@ char *csplit(char string[])
     {
         if(string[i] == ' ')
         {
-          if(nPointer != 0)
+            if(nSize != 0) 
             {
-                if(nSize != 0) 
+                char *temparray = malloc((nSize + 1) * sizeof(char));
+                if(temparray == NULL)
                 {
-                    char *temparray = malloc((nSize + 1) * sizeof(char));
-                    if(temparray == NULL)
-                    {
-                        printf("Failed to allocate memory\n");
-                        return NULL;
-                    }
-                    for(int j = 0; j < nSize; j++)
-                    {
-                        temparray[j] = string[nPointer + j];
-                    }
-                    temparray[nSize] = '\0'; // add null terminator
-                    return temparray;
+                    printf("Failed to allocate memory\n");
+                    return NULL;
                 }
+                for(int j = 0; j < nSize; j++)
+                {
+                    temparray[j] = string[nPointer + j];
+                }
+                temparray[nSize] = '\0'; // add null terminator
+                return temparray;
             }
             nPointer = 0;
             nSize = 0;
