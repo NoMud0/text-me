@@ -23,16 +23,12 @@ char *copyToken(char *string, int pointer, int size)
 char *csplit(char string[])
 {
     int i = 0;
+    int tokenTrue = 0;
     int nPointer = 0;
     int nSize = 0;
     while(string[i])
     {
-        if(string[i] == ' ') // if it is a space
-        {
-            char *Token = copyToken(string, nPointer, nSize);
-            return Token;
-        }
-        else // if it is a char
+        if(string[i] != ' ') // if it is a char
         {
             if(i == nPointer + nSize)
             {
@@ -43,8 +39,22 @@ char *csplit(char string[])
                 nPointer = i;
                 nSize = 1;
             }
+            tokenTrue = 1;
+        }
+        else // if it is a space TODO
+        {
+            if(tokenTrue == 1)
+            {
+                char *Token = copyToken(string, nPointer, nSize);
+                return Token;
+            }
         }
         i++;
+    }
+    if(tokenTrue == 1)
+    {
+        char *Token = copyToken(string, nPointer, nSize);
+        return Token;
     }
     return NULL;
 }
@@ -52,7 +62,7 @@ char *csplit(char string[])
 
 int main()
 {
-    char string[] = "hello lol zzz";
+    char string[] = "   hello   ";
     char *array = csplit(string);
     printf("%s\n", array);
     //test for each character in the array
